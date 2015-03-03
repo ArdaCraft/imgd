@@ -164,8 +164,8 @@ func (router *Router) Bind() {
 }
 
 func fetchSkin(username string) *mcSkin {
-	if username == "char" {
-		skin, _ := minecraft.FetchSkinForChar()
+	if username == "Steve" {
+		skin, _ := minecraft.FetchSkinForSteve()
 		return &mcSkin{Skin: skin}
 	}
 
@@ -174,15 +174,15 @@ func fetchSkin(username string) *mcSkin {
 		return &mcSkin{Processed: nil, Skin: cache.pull(strings.ToLower(username))}
 	}
 
-	skin, err := minecraft.FetchSkinFromMojang(username)
+	skin, err := minecraft.FetchSkinUsernameMojang(username)
 	if err != nil {
 		log.Error("Failed Skin Mojang: " + username + " (" + err.Error() + ")")
 		// Let's fallback to S3 and try and serve at least an old skin...
-		skin, err = minecraft.FetchSkinFromS3(username)
+		skin, err = minecraft.FetchSkinUsernameS3(username)
 		if err != nil {
 			log.Error("Failed Skin S3: " + username + " (" + err.Error() + ")")
 			// Well, looks like they don't exist after all.
-			skin, _ = minecraft.FetchSkinForChar()
+			skin, _ = minecraft.FetchSkinForSteve()
 		}
 	}
 
