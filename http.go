@@ -172,6 +172,8 @@ func (router *Router) Bind() {
 	router.Mux.HandleFunc("/download/{username:"+minecraft.ValidUsernameRegex+"}{extension:(.png)?}", router.DownloadPage)
 	router.Mux.HandleFunc("/skin/{username:"+minecraft.ValidUsernameRegex+"}{extension:(.png)?}", router.SkinPage)
 
+	router.Mux.PathPrefix("/.well-known").Handler(http.FileServer(http.Dir("./static/")))
+
 	router.Mux.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "%s\n", ImgdVersion)
 		log.Info(r.RemoteAddr + " " + r.RequestURI + " 200 ")

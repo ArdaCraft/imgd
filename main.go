@@ -12,11 +12,11 @@ import (
 
 // Set the default, min and max width to resize processed images to.
 const (
-	DefaultWidth = uint(180)
+	DefaultWidth = uint(300)
 	MinWidth     = uint(8)
-	MaxWidth     = uint(300)
+	MaxWidth     = uint(2048)
 
-	ImgdVersion = "2.9.2"
+	ImgdVersion = "2.9.2-ardacraft"
 )
 
 var (
