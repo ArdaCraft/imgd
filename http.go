@@ -158,6 +158,7 @@ func (router *Router) Serve(resource string) {
 func (router *Router) Bind() {
 
 	router.Mux.NotFoundHandler = NotFoundHandler{}
+	router.Mux.StrictSlash(true)
 
 	router.Serve("Avatar")
 	router.Serve("Helm")
